@@ -1,9 +1,6 @@
 [submodule ".vim/bundle/nerdtree"]
 	path = .vim/bundle/nerdtree
 	url = git://github.com/scrooloose/nerdtree.git
-[submodule ".vim/bundle/git-gutter-vim"]
-	path = .vim/bundle/git-gutter-vim
-	url = git://github.com/akiomik/git-gutter-vim.git
 [submodule ".vim/bundle/vim-coffee-script"]
 	path = .vim/bundle/vim-coffee-script
 	url = git://github.com/kchmck/vim-coffee-script.git
@@ -16,3 +13,6 @@
 [submodule ".vim/bundle/vim-stylus"]
 	path = .vim/bundle/vim-stylus
 	url = git://github.com/wavded/vim-stylus.git
+[submodule ".vim/bundle/vim-gundo"]
+	path = .vim/bundle/vim-gundo
+	url = git://github.com/sjl/gundo.vim.git
