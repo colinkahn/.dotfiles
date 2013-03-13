@@ -64,6 +64,10 @@ let NERDTreeChDirMode=0
 let NERDTreeMouseMode=2
 let NERDTreeShowHidden=1
 let NERDTreeIgnore=['\.pyc','\~$','\.swo$','\.swp$','\.git','\.hg','\.svn','\.bzr']
+
+" Nerdtree Tabs
+noremap  <F2> :NERDTreeTabsToggle<cr>
+inoremap <F2> <esc>:NERDTreeTabsToggle<cr>
  
 " Colorscheme
 set t_Co=256
