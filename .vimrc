@@ -60,7 +60,7 @@ au FocusLost * :silent! wall
 au VimResized * :wincmd =
 
 " Nerdtree
-nnoremap <C-g> :NERDTreeToggle<cr>
+nnoremap <C-g> :NERDTreeTabsToggle<cr>
 let NERDTreeShowBookmarks=1
 let NERDTreeChDirMode=0
 let NERDTreeMouseMode=2
@@ -85,3 +85,6 @@ nmap <Leader>a: :Tabularize /:\zs<CR>
 vmap <Leader>a: :Tabularize /:\zs<CR>
 nmap <Leader>a, :Tabularize /,\zs<CR>
 vmap <Leader>a, :Tabularize /,\zs<CR>
+
+" Mouse Support
+set mouse=a
