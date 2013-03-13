@@ -2,6 +2,8 @@
 " Other settings from https://bitbucket.org/sjl/dotfiles/src/tip/vim/vimrc
 set nocompatible
 
+let mapleader=','
+
 " Pathogen
 call pathogen#infect()
 call pathogen#helptags()
@@ -76,3 +78,10 @@ colorscheme Tomorrow-Night
 " Remap ESC
 inoremap jj <ESC>
 
+" Tabularize
+nmap <Leader>a= :Tabularize /=<CR>
+vmap <Leader>a= :Tabularize /=<CR>
+nmap <Leader>a: :Tabularize /:\zs<CR>
+vmap <Leader>a: :Tabularize /:\zs<CR>
+nmap <Leader>a, :Tabularize /,\zs<CR>
+vmap <Leader>a, :Tabularize /,\zs<CR>
