@@ -17,9 +17,9 @@ set autoindent
 set history=1000
 set cursorline
 set expandtab
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4
+set shiftwidth=2
+set tabstop=2
+set softtabstop=2
 set textwidth=80
 set list
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
