@@ -31,4 +31,5 @@ if __name__=="__main__":
     mailbox = Mailbox(user,password)
     print "[DIFFS] %s [TASKS] %s" % (mailbox.diffs(), mailbox.tasks())
   except Exception as e:
-    print "Python Error :( %s" % (e.message)
+    print "~"
+    #print "Python Error :( %s" % (e.message)
