@@ -88,3 +88,6 @@ vmap <Leader>a, :Tabularize /,\zs<CR>
 
 " Mouse Support
 set mouse=a
+
+" Fuzzy Finder
+nnoremap <C-t> :FufCoverageFile<cr>
