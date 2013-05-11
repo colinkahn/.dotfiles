@@ -88,3 +88,7 @@ vmap <Leader>a, :Tabularize /,\zs<CR>
 
 " Mouse Support
 set mouse=a
+
+" Add Under-Cusor Highlighting
+:autocmd CursorMoved * exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+
