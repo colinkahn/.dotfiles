@@ -1,0 +1,5 @@
+# Edit file in Diff mode
+bind diff E !vi %(file)
+
+# Edit file in Tree mode
+bind tree V !vim %(file)

@@ -94,3 +94,6 @@ set mouse=a
 
 " Fuzzy Finder
 nnoremap <C-t> :FufCoverageFile<cr>
+
+" Always show tab bar
+set showtabline=2
