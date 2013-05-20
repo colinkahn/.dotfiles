@@ -43,3 +43,9 @@
 [submodule ".vim/bundle/vim-indent-guides"]
 	path = .vim/bundle/vim-indent-guides
 	url = git://github.com/nathanaelkane/vim-indent-guides.git
+[submodule ".vim/bundle/paredit"]
+	path = .vim/bundle/paredit
+	url = git://github.com/vim-scripts/paredit.vim.git
+[submodule ".vim/bundle/screen"]
+	path = .vim/bundle/screen
+	url = git://github.com/ervandew/screen.git
