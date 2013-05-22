@@ -4,5 +4,5 @@ bind log    o !@hub browse -- commit/%(commit)
 bind diff   v !vim %(file)
 bind tree   v !vim %(file)
 bind status v !vim %(file)
-bind status c !@git rebase --continue
-bind status s !@git rebase --skip
+bind status c !git rebase --continue
+bind status s !git rebase --skip
