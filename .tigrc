@@ -1,5 +1,8 @@
-# Edit file in Diff mode
-bind diff E !vi %(file)
-
-# Edit file in Tree mode
-bind tree V !vim %(file)
+bind main   o !@hub browse -- commit/%(commit)
+bind diff   o !@hub browse -- commit/%(commit)
+bind log    o !@hub browse -- commit/%(commit)
+bind diff   v !vim %(file)
+bind tree   v !vim %(file)
+bind status v !vim %(file)
+bind status c !@git rebase --continue
+bind status s !@git rebase --skip
