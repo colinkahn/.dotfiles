@@ -6,3 +6,6 @@ bind tree   v !vim %(file)
 bind status v !vim %(file)
 bind status c !git rebase --continue
 bind status s !git rebase --skip
+bind status g !vim +%(prompt) %(file)
+bind status r !?git checkout %(file)
+bind diff   b move-first-line
