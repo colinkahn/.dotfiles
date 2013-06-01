@@ -97,6 +97,7 @@ nnoremap <C-t> :FufCoverageFile<cr>
 
 " Always show tab bar
 set showtabline=2
+set laststatus=2
 
 " Screen
 nnoremap <silent> <leader>s :call PareditFindOpening('(',')',1)<cr>:ScreenSend<cr>
