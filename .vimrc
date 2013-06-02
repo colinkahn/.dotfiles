@@ -94,6 +94,7 @@ set mouse=a
 
 " Fuzzy Finder
 nnoremap <C-t> :FufCoverageFile<cr>
+let g:fuf_coveragefile_exclude = '\v\~$|(build|node_modules|vendor)/|\.(DS_Store|png|gif|jpg|jpeg|eot|ttf|svg|woff|xlsx)$'
 
 " Always show tab bar
 set showtabline=2
