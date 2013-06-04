@@ -40,6 +40,7 @@ set linebreak
 set dictionary=/usr/share/dict/words
 set spellfile=~/.vim/custom-dictionary.utf-8.add
 set colorcolumn=+1
+set backspace=indent,eol,start
 
 " No Swapfiles 
 set noswapfile

@@ -1,11 +1,12 @@
-bind main   o !@hub browse -- commit/%(commit)
-bind diff   o !@hub browse -- commit/%(commit)
-bind log    o !@hub browse -- commit/%(commit)
-bind diff   v !vim %(file)
-bind tree   v !vim %(file)
-bind status v !vim %(file)
-bind status c !git rebase --continue
-bind status s !git rebase --skip
-bind status g !vim +%(prompt) %(file)
-bind status r !?git checkout %(file)
-bind diff   b move-first-line
+# HUB COMMANDS
+bind main       o !@hub browse -- commit/%(commit)
+bind diff       o !@hub browse -- commit/%(commit)
+bind log        o !@hub browse -- commit/%(commit)
+
+# STATUS COMMANDS
+bind status     c !@git rebase --continue
+bind status     s !@git rebase --skip
+bind status     . !@git add .
+
+# ARCANIST COMMANDS
+bind generic    a !?arc diff develop
