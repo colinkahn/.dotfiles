@@ -4,11 +4,13 @@ bind diff       o !@hub browse -- commit/%(commit)
 bind log        o !@hub browse -- commit/%(commit)
 
 # GIT COMMANDS
-bind generic    > !git push origin %(branch)
+bind branch     > !@?git push origin %(branch)
+bind branch     < !@?git pull origin %(branch)
+bind branch     C !@?git checkout %(branch)
 
 # STATUS COMMANDS
-bind status     c !@git rebase --continue
-bind status     s !@git rebase --skip
+bind status     c !@?git rebase --continue
+bind status     s !@?git rebase --skip
 bind status     . !@git add .
 
 # ARCANIST COMMANDS
