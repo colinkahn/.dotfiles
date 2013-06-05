@@ -3,6 +3,9 @@ bind main       o !@hub browse -- commit/%(commit)
 bind diff       o !@hub browse -- commit/%(commit)
 bind log        o !@hub browse -- commit/%(commit)
 
+# GIT COMMANDS
+bind generic    > !git push origin %(branch)
+
 # STATUS COMMANDS
 bind status     c !@git rebase --continue
 bind status     s !@git rebase --skip
