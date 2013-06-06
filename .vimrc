@@ -105,5 +105,7 @@ set laststatus=2
 nnoremap <silent> <leader>s :call PareditFindOpening('(',')',1)<cr>:ScreenSend<cr>
 
 " Indent Guides
-let g:indentLine_char = "┊"
+let g:indentLine_char= "┊"
+let g:indentLine_first_char = "┊"
 let g:indentLine_color_term = 236
+let g:indentLine_showFirstIndentLevel = 1
