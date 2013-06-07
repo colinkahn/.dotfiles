@@ -1,5 +1,9 @@
 " Generated using http://yoursachet.com/
 " Other settings from https://bitbucket.org/sjl/dotfiles/src/tip/vim/vimrc
+"
+" VIM Resources
+"   - http://stackoverflow.com/questions/1276403/simple-vim-commands-you-wish-youd-known-earlier
+"
 set nocompatible
 
 let mapleader=','
@@ -41,6 +45,7 @@ set dictionary=/usr/share/dict/words
 set spellfile=~/.vim/custom-dictionary.utf-8.add
 set colorcolumn=+1
 set backspace=indent,eol,start
+set incsearch
 
 " No Swapfiles 
 set noswapfile
@@ -94,8 +99,8 @@ set mouse=a
 :autocmd CursorMoved * exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 
 " Fuzzy Finder
-nnoremap <C-t> :FufCoverageFile<cr>
-let g:fuf_coveragefile_exclude = '\v\~$|(build|node_modules|vendor)/|\.(DS_Store|png|gif|jpg|jpeg|eot|ttf|svg|woff|xlsx)$'
+nnoremap <C-t> :FufFile **/<CR>
+let g:fuf_file_exclude = '\v\~$|(build|node_modules|vendor)/|\.(DS_Store|png|gif|jpg|jpeg|eot|ttf|svg|woff|xlsx)$'
 
 " Always show tab bar
 set showtabline=2
