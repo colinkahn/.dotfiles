@@ -99,6 +99,8 @@ let g:fuf_coveragefile_exclude = '\v\~$|(build|node_modules|vendor)/|\.(DS_Store
 
 " Always show tab bar
 set showtabline=2
+
+" Always show status bar
 set laststatus=2
 
 " Screen
@@ -109,3 +111,6 @@ let g:indentLine_char= "┊"
 let g:indentLine_first_char = "┊"
 let g:indentLine_color_term = 236
 let g:indentLine_showFirstIndentLevel = 1
+
+" Vim Markdown
+let g:vim_markdown_folding_disabled=1
