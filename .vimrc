@@ -98,8 +98,12 @@ set mouse=a
 " Add Under-Cusor Highlighting
 :autocmd CursorMoved * exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 
+" Count Word Under-Cursor
+map <Leader>c :execute ":%s@\\<" . expand("<cword>") . "\\>\@&@gn"<CR>
+
 " Fuzzy Finder
 nnoremap <C-t> :FufFile **/<CR>
+nnoremap <C-@> :execute ":FufFile **/" . expand("%:t:r")<CR>
 let g:fuf_file_exclude = '\v\~$|(build|node_modules|vendor)/|\.(DS_Store|png|gif|jpg|jpeg|eot|ttf|svg|woff|xlsx)$'
 
 " Always show tab bar
