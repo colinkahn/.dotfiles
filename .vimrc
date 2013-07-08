@@ -123,3 +123,8 @@ let g:indentLine_showFirstIndentLevel = 1
 
 " Vim Markdown
 let g:vim_markdown_folding_disabled=1
+au BufRead,BufNewFile *.md set filetype=markdown
+
+" Easy Tabbing
+nnoremap <C-S-}> :tabnext<CR>
+nnoremap <C-S-{> :tabprev<CR>
