@@ -118,7 +118,7 @@ nnoremap <silent> <leader>s :call PareditFindOpening('(',')',1)<cr>:ScreenSend<c
 " Indent Guides
 let g:indentLine_char= "┊"
 let g:indentLine_first_char = "┊"
-let g:indentLine_color_term = 236
+let g:indentLine_color_term = 240
 let g:indentLine_showFirstIndentLevel = 1
 
 " Vim Markdown
