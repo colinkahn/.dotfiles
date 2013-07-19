@@ -5,6 +5,7 @@ set show-date = relative
 bind main       o !@hub browse -- commit/%(commit)
 bind diff       o !@hub browse -- commit/%(commit)
 bind log        o !@hub browse -- commit/%(commit)
+bind generic    P !?hub pull-request | pbcopy
 
 # GENERIC GIT COMMANDS
 bind generic    $ !?git checkout -b %(prompt)
@@ -28,3 +29,6 @@ bind status     ~ !?git reset --hard HEAD~%(prompt)
 # ARCANIST COMMANDS
 bind generic    A !?arc diff develop
 bind generic    L !?arc land
+
+# GRUNT COMMANDS
+bind generic    G !?grunt %(prompt)
