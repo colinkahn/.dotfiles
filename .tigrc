@@ -5,7 +5,7 @@ set show-date = relative
 bind main       o !@hub browse -- commit/%(commit)
 bind diff       o !@hub browse -- commit/%(commit)
 bind log        o !@hub browse -- commit/%(commit)
-bind generic    P !?hub pull-request | pbcopy
+bind branch     P !?hub pull-request -b %(prompt) -h %(branch)
 
 # GENERIC GIT COMMANDS
 bind generic    $ !?git checkout -b %(prompt)
