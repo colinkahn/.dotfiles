@@ -5,7 +5,8 @@ set show-date = relative
 bind main       o !@hub browse -- commit/%(commit)
 bind diff       o !@hub browse -- commit/%(commit)
 bind log        o !@hub browse -- commit/%(commit)
-bind branch     P !?hub pull-request -b %(prompt) -h %(branch)
+bind branch     P !?hub pull-request -b %(prompt) -h %(prompt)%(branch)
+bind generic    b !@hub browse -- %(prompt)
 
 # GENERIC GIT COMMANDS
 bind generic    $ !?git checkout -b %(prompt)
@@ -14,6 +15,7 @@ bind generic    $ !?git checkout -b %(prompt)
 bind branch     C !?@git checkout %(branch)
 bind branch     > !?git push origin %(branch)
 bind branch     < !?git pull origin %(branch)
+bind branch     F !?git %(prompt) origin %(branch) -f
 bind branch     X !?git branch -d %(branch)
 bind branch     K !?git branch -D %(branch)
 bind branch     m !?git branch -m %(branch) %(prompt)
@@ -23,8 +25,9 @@ bind branch     & !?git rebase %(branch)
 bind status     c !?git rebase --continue
 bind status     s !?git rebase --skip
 bind status     . !@git add .
-bind status     < !?git reset --hard HEAD
+bind status     r !?git reset --hard HEAD
 bind status     ~ !?git reset --hard HEAD~%(prompt)
+bind status     & !git commit --amend
 
 # ARCANIST COMMANDS
 bind generic    A !?arc diff develop
