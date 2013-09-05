@@ -28,6 +28,7 @@ bind status     . !@git add .
 bind status     r !?git reset --hard HEAD
 bind status     ~ !?git reset --hard HEAD~%(prompt)
 bind status     & !git commit --amend
+bind status     - !@?rm %(file)
 
 # ARCANIST COMMANDS
 bind generic    A !?arc diff develop
@@ -35,3 +36,6 @@ bind generic    L !?arc land
 
 # GRUNT COMMANDS
 bind generic    G !?grunt %(prompt)
+
+# GHI COMMANDS
+bind generic    I !ghi list -ucolinkahn %(prompt)
