@@ -20,6 +20,7 @@ bind branch     X !?git branch -d %(branch)
 bind branch     K !?git branch -D %(branch)
 bind branch     m !?git branch -m %(branch) %(prompt)
 bind branch     & !?git rebase %(branch)
+bind branch     + !?git merge %(branch)
 
 # STATUS COMMANDS
 bind status     c !?git rebase --continue
@@ -29,6 +30,9 @@ bind status     r !?git reset --hard HEAD
 bind status     ~ !?git reset --hard HEAD~%(prompt)
 bind status     & !git commit --amend
 bind status     - !@?rm %(file)
+
+# MAIN COMMANDS
+bind main       C !?git checkout %(commit)
 
 # ARCANIST COMMANDS
 bind generic    A !?arc diff develop

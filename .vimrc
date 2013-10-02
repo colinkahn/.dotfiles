@@ -71,7 +71,7 @@ let NERDTreeShowBookmarks=1
 let NERDTreeChDirMode=0
 let NERDTreeMouseMode=2
 let NERDTreeShowHidden=1
-let NERDTreeIgnore=['\.pyc','\~$','\.swo$','\.swp$','\.git','\.hg','\.svn','\.bzr']
+let NERDTreeIgnore=['\.pyc','\~$','\.swo$','\.swp$','\.git$','\.hg','\.svn','\.bzr']
 
 " Nerdtree Tabs
 noremap  <F2> :NERDTreeTabsToggle<cr>
@@ -128,3 +128,6 @@ au BufRead,BufNewFile *.md set filetype=markdown
 " Easy Tabbing
 nnoremap <C-S-}> :tabnext<CR>
 nnoremap <C-S-{> :tabprev<CR>
+
+" Fixing Background
+let &colorcolumn=join(range(81,999),",")
