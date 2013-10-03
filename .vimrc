@@ -71,7 +71,7 @@ let NERDTreeShowBookmarks=1
 let NERDTreeChDirMode=0
 let NERDTreeMouseMode=2
 let NERDTreeShowHidden=1
-let NERDTreeIgnore=['\.pyc','\~$','\.swo$','\.swp$','\.git$','\.hg','\.svn','\.bzr']
+let NERDTreeIgnore=['\.pyc','\~$','\.swo$','\.swp$','\.git$','\.hg','\.svn','\.bzr', '^\.DS_Store$']
 
 " Nerdtree Tabs
 noremap  <F2> :NERDTreeTabsToggle<cr>
