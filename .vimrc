@@ -4,6 +4,16 @@
 " VIM Resources
 "   - http://stackoverflow.com/questions/1276403/simple-vim-commands-you-wish-youd-known-earlier
 "
+" VIM Plugins to try out
+"   - https://github.com/kien/tabman.vim
+"
+" VIM Plugins to probably remove
+"   - Gundo (because I've never used it once)
+"   - Fugitive (either learn to use it or remove it... though Gblame is nice)
+"
+" VIM Resources
+"   - http://vimcasts.org/episodes/profiling-vimscript-performance/
+"
 set nocompatible
 
 let mapleader=','
@@ -105,6 +115,10 @@ map <Leader>c :execute ":%s@\\<" . expand("<cword>") . "\\>\@&@gn"<CR>
 nnoremap <C-t> :FufFile **/<CR>
 nnoremap <C-@> :execute ":FufFile **/" . expand("%:t:r")<CR>
 let g:fuf_file_exclude = '\v\~$|(tmp|build|node_modules|vendor)/|\.(DS_Store|png|gif|jpg|jpeg|eot|ttf|svg|woff|xlsx)$'
+
+" CTRLP
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_custom_ignore = '\v\~$|(.git|tmp|build|node_modules|vendor)/|\.(DS_Store|png|gif|jpg|jpeg|eot|ttf|svg|woff|xlsx)$'
 
 " Always show tab bar
 set showtabline=2
