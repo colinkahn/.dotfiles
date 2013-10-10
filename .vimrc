@@ -119,6 +119,15 @@ let g:fuf_file_exclude = '\v\~$|(tmp|build|node_modules|vendor)/|\.(DS_Store|png
 " CTRLP
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_custom_ignore = '\v\~$|(.git|tmp|build|node_modules|vendor)/|\.(DS_Store|png|gif|jpg|jpeg|eot|ttf|svg|woff|xlsx)$'
+let g:ctrlp_prompt_mappings = {
+    \ 'ToggleFocus()':        ['<up>'],
+    \ 'PrtExpandDir()':       ['<down>'],
+    \ 'PrtSelectMove("k")':   ['<s-tab>'],
+    \ 'PrtSelectMove("j")':   ['<tab>'],
+    \ 'PrtCurRight()':        ['<right>'],
+    \ 'AcceptSelection("t")': ['<c-l>'],
+    \ 'AcceptSelection("v")': ['<c-k>'],
+    \ }
 
 " Always show tab bar
 set showtabline=2
