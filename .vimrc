@@ -81,7 +81,18 @@ let NERDTreeShowBookmarks=1
 let NERDTreeChDirMode=0
 let NERDTreeMouseMode=2
 let NERDTreeShowHidden=1
-let NERDTreeIgnore=['\.pyc','\~$','\.swo$','\.swp$','\.git$','\.hg','\.svn','\.bzr', '^\.DS_Store$', '\.sass-cache']
+let NERDTreeIgnore=[
+    \ '\.pyc',
+    \ '\~$',
+    \ '\.swo$',
+    \ '\.swp$',
+    \ '\.git$',
+    \ '\.hg',
+    \ '\.svn',
+    \ '\.bzr', 
+    \ '^\.DS_Store$', 
+    \ '\.sass-cache'
+    \ ]
 
 " Nerdtree Tabs
 noremap  <F2> :NERDTreeTabsToggle<cr>
@@ -110,11 +121,6 @@ set mouse=a
 
 " Count Word Under-Cursor
 map <Leader>c :execute ":%s@\\<" . expand("<cword>") . "\\>\@&@gn"<CR>
-
-" Fuzzy Finder
-nnoremap <C-t> :FufFile **/<CR>
-nnoremap <C-@> :execute ":FufFile **/" . expand("%:t:r")<CR>
-let g:fuf_file_exclude = '\v\~$|(tmp|build|node_modules|vendor)/|\.(DS_Store|png|gif|jpg|jpeg|eot|ttf|svg|woff|xlsx)$'
 
 " CTRLP
 let g:ctrlp_show_hidden = 1
