@@ -4,6 +4,7 @@
 #       U    ack!
 
 --type-add=html=.hbs
+--type-add=html=.jade
 --type-add=css=.scss
 --ignore-dir=.sass-cache
 --ignore-dir=node_modules
