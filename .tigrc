@@ -23,6 +23,7 @@ bind branch     m !?git branch -m %(branch) %(prompt)
 bind branch     | !?git checkout -b %(prompt) %(branch)
 bind branch     & !?git rebase %(branch)
 bind branch     + !?git merge %(branch)
+bind branch     p !?git remote prune origin
 
 # STATUS COMMANDS
 bind status     c !?git rebase --continue
