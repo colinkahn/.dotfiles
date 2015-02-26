@@ -108,8 +108,8 @@ inoremap jj <ESC>
 " Tabularize
 nmap <Leader>a= :Tabularize /=<CR>
 vmap <Leader>a= :Tabularize /=<CR>
-nmap <Leader>a: :Tabularize /:\zs<CR>
-vmap <Leader>a: :Tabularize /:\zs<CR>
+nmap <Leader>a: :Tabularize /:\zs/l0c1l0<CR>
+vmap <Leader>a: :Tabularize /:\zs/l0c1l0<CR>
 nmap <Leader>a, :Tabularize /,\zs<CR>
 vmap <Leader>a, :Tabularize /,\zs<CR>
 
@@ -123,8 +123,17 @@ set mouse=a
 map <Leader>c :execute ":%s@\\<" . expand("<cword>") . "\\>\@&@gn"<CR>
 
 " CTRLP
+" http://kien.github.io/ctrlp.vim/
 let g:ctrlp_show_hidden = 1
-let g:ctrlp_custom_ignore = '\v\~$|(.git|tmp|build|node_modules|vendor)/|\.(DS_Store|png|gif|jpg|jpeg|eot|ttf|svg|woff|xlsx)$'
+let g:ctrlp_mruf_relative = 1
+let g:ctrlp_custom_ignore = '\v\~$|(.git|tmp|build|node_modules|vendor|coverage|docs)/|\.(DS_Store|png|gif|jpg|jpeg|eot|ttf|svg|woff|xlsx)$'
+let g:ctrlp_user_command = {
+    \ 'types': {
+        \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+        \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+    \ },
+    \ 'fallback': 'find %s -type f'
+\ }
 let g:ctrlp_prompt_mappings = {
     \ 'ToggleFocus()':        ['<up>'],
     \ 'PrtExpandDir()':       ['<down>'],
@@ -134,6 +143,7 @@ let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("t")': ['<c-l>'],
     \ 'AcceptSelection("v")': ['<c-k>'],
     \ }
+let g:ctrlp_cmd = 'CtrlPMixed'
 
 " Always show tab bar
 set showtabline=2
@@ -160,3 +170,30 @@ nnoremap <C-S-{> :tabprev<CR>
 
 " Fixing Background
 let &colorcolumn=join(range(81,999),",")
+
+" Set `_` as word delimiter
+set iskeyword-=_
+
+" Center when finding next word
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
+
+command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
+
+function! QuickfixFilenames()
+  " Building a hash ensures we get each buffer only once
+  let buffer_numbers = {}
+  for quickfix_item in getqflist()
+    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+  endfor
+  return join(values(buffer_numbers))
+endfunction
+
+" Insert the date
+
+:nnoremap <F5> "=strftime("%c")<CR>P
+:inoremap <F5> <C-R>=strftime("%c")<CR>

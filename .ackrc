@@ -6,6 +6,9 @@
 --type-add=html=.hbs
 --type-add=html=.jade
 --type-add=css=.scss
+--type-add=markdown=.md
 --ignore-dir=.sass-cache
 --ignore-dir=node_modules
 --ignore-dir=bower_components
+--ignore-dir=coverage
+--ignore-dir=docs
