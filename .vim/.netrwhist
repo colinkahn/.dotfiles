@@ -1,8 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/Users/colinkahn/code/aircontrol/test/e2e/pageObjects'
-let g:netrw_dirhist_2='/Users/colinkahn/code/aircontrol/test/e2e'
-let g:netrw_dirhist_3='/Users/colinkahn/code/aircontrol/test'
-let g:netrw_dirhist_4='/Users/colinkahn/code/aircontrol'
-let g:netrw_dirhist_5='/Users/colinkahn/code/aircontrol/coverage'
-let g:netrw_dirhist_6='/Users/colinkahn/code/aircontrol/src/scripts/services'
+let g:netrw_dirhist_cnt =0

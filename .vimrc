@@ -47,7 +47,7 @@ set splitbelow
 set splitright
 set fillchars=diff:⣿,vert:│
 set autowrite
-set autoread
+set noautoread
 set shiftround
 set title
 set linebreak
@@ -75,29 +75,9 @@ au FocusLost * :silent! wall
 " Resize splits when the window is resized
 au VimResized * :wincmd =
 
-" Nerdtree
-nnoremap <C-g> :NERDTreeTabsToggle<cr>
-let NERDTreeShowBookmarks=1
-let NERDTreeChDirMode=0
-let NERDTreeMouseMode=2
-let NERDTreeShowHidden=1
-let NERDTreeIgnore=[
-    \ '\.pyc',
-    \ '\~$',
-    \ '\.swo$',
-    \ '\.swp$',
-    \ '\.git$',
-    \ '\.hg',
-    \ '\.svn',
-    \ '\.bzr', 
-    \ '^\.DS_Store$', 
-    \ '\.sass-cache'
-    \ ]
+" Use hidden buffers
+set hidden
 
-" Nerdtree Tabs
-noremap  <F2> :NERDTreeTabsToggle<cr>
-inoremap <F2> <esc>:NERDTreeTabsToggle<cr>
- 
 " Colorscheme
 set t_Co=256
 colorscheme Tomorrow-Night
@@ -143,7 +123,11 @@ let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("t")': ['<c-l>'],
     \ 'AcceptSelection("v")': ['<c-k>'],
     \ }
-let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_cmd = 'CtrlPLastMode'
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
+
+nmap <LEADER>sw :CtrlPLine<CR><C-\>w
+nmap <LEADER>sf :let @"=expand("%:t:r:r")<CR>:CtrlP<CR><C-\>r"
 
 " Always show tab bar
 set showtabline=2
@@ -172,7 +156,7 @@ nnoremap <C-S-{> :tabprev<CR>
 let &colorcolumn=join(range(81,999),",")
 
 " Set `_` as word delimiter
-set iskeyword-=_
+set iskeyword+=_
 
 " Center when finding next word
 nnoremap n nzz
@@ -197,3 +181,33 @@ endfunction
 
 :nnoremap <F5> "=strftime("%c")<CR>P
 :inoremap <F5> <C-R>=strftime("%c")<CR>
+
+" Tern?
+autocmd FileType javascript setlocal omnifunc=tern#Complete
+
+" Netrw
+autocmd FileType netrw setl bufhidden=wipe
+
+" Jump to middle of line
+nnoremap gm :call cursor(0, len(getline('.'))/2)<CR>
+
+" Show me those god damn quotes!
+let g:vim_json_syntax_conceal = 0
+
+" Toggle paste with F2
+set pastetoggle=<F2>
+
+" Taste the rainbow!
+let g:rainbow_active = 0
+
+" Fix jade syntax highlighting
+autocmd BufNewFile,BufRead *.jade set filetype=jade
+
+" Smart return for delmit
+let delimitMate_expand_cr=1
+
+" Buffergator
+let g:buffergator_viewport_split_policy = 'N'
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger='<c-j>'
