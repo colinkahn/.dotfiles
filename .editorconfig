@@ -1,0 +1,14 @@
+# http://editorconfig.org
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+[*.{snippets}]
+charset = utf-8
+trim_trailing_whitespace = true
+
+[*.snippets]
+indent_style = space
+indent_size = 2

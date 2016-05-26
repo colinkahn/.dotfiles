@@ -1,5 +1,11 @@
 ulimit -n 1000
-PATH=$HOME/bin:/usr/local/bin:$PATH:$HOME/Code/Arcanist/arcanist/bin/
+
+export CLOJURESCRIPT_HOME=$HOME/code/clojurescript/
+
+PATH=$HOME/bin:/usr/local/bin:$CLOJURESCRIPT_HOME/bin:$PATH:$HOME/Code/Arcanist/arcanist/bin/
+
+alias nbin='PATH=$(npm bin):$PATH'
+
 . ~/.nvm/nvm.sh
 . $(dirname "${BASH_SOURCE[0]}")/.bash_prompt
 alias tmux="tmux -2"

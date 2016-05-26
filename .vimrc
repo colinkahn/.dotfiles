@@ -56,6 +56,7 @@ set spellfile=~/.vim/custom-dictionary.utf-8.add
 set colorcolumn=+1
 set backspace=indent,eol,start
 set incsearch
+set hidden
 
 " No Swapfiles 
 set noswapfile
@@ -74,33 +75,10 @@ au FocusLost * :silent! wall
 
 " Resize splits when the window is resized
 au VimResized * :wincmd =
-
-" Nerdtree
-nnoremap <C-g> :NERDTreeTabsToggle<cr>
-let NERDTreeShowBookmarks=1
-let NERDTreeChDirMode=0
-let NERDTreeMouseMode=2
-let NERDTreeShowHidden=1
-let NERDTreeIgnore=[
-    \ '\.pyc',
-    \ '\~$',
-    \ '\.swo$',
-    \ '\.swp$',
-    \ '\.git$',
-    \ '\.hg',
-    \ '\.svn',
-    \ '\.bzr', 
-    \ '^\.DS_Store$', 
-    \ '\.sass-cache'
-    \ ]
-
-" Nerdtree Tabs
-noremap  <F2> :NERDTreeTabsToggle<cr>
-inoremap <F2> <esc>:NERDTreeTabsToggle<cr>
  
 " Colorscheme
 set t_Co=256
-colorscheme Tomorrow-Night
+colorscheme darcula
 
 " Remap ESC
 inoremap jj <ESC>
@@ -123,8 +101,17 @@ set mouse=a
 map <Leader>c :execute ":%s@\\<" . expand("<cword>") . "\\>\@&@gn"<CR>
 
 " CTRLP
+" http://kien.github.io/ctrlp.vim/
 let g:ctrlp_show_hidden = 1
-let g:ctrlp_custom_ignore = '\v\~$|(.git|tmp|build|node_modules|vendor)/|\.(DS_Store|png|gif|jpg|jpeg|eot|ttf|svg|woff|xlsx)$'
+let g:ctrlp_mruf_relative = 1
+let g:ctrlp_custom_ignore = '\v\~$|(.git|tmp|build|node_modules|vendor|coverage|docs)/|\.(DS_Store|png|gif|jpg|jpeg|eot|ttf|svg|woff|xlsx)$'
+let g:ctrlp_user_command = {
+    \ 'types': {
+        \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+        \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+    \ },
+    \ 'fallback': 'find %s -type f'
+\ }
 let g:ctrlp_prompt_mappings = {
     \ 'ToggleFocus()':        ['<up>'],
     \ 'PrtExpandDir()':       ['<down>'],
@@ -134,6 +121,11 @@ let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("t")': ['<c-l>'],
     \ 'AcceptSelection("v")': ['<c-k>'],
     \ }
+let g:ctrlp_cmd = 'CtrlPLastMode'
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
+
+nmap <LEADER>sw :CtrlPLine<CR><C-\>w
+nmap <LEADER>sf :let @"=expand("%:t:r:r")<CR>:CtrlP<CR><C-\>r"
 
 " Always show tab bar
 set showtabline=2
@@ -143,12 +135,6 @@ set laststatus=2
 
 " Screen
 nnoremap <silent> <leader>s :call PareditFindOpening('(',')',1)<cr>:ScreenSend<cr>
-
-" Indent Guides
-let g:indentLine_char= "┊"
-let g:indentLine_first_char = "┊"
-let g:indentLine_color_term = 240
-let g:indentLine_showFirstIndentLevel = 1
 
 " Vim Markdown
 let g:vim_markdown_folding_disabled=1
@@ -160,3 +146,47 @@ nnoremap <C-S-{> :tabprev<CR>
 
 " Fixing Background
 let &colorcolumn=join(range(81,999),",")
+
+" YCM
+set shortmess+=c
+let g:ycm_goto_list_height=10
+
+nnoremap <LEADER>gd :YcmCompleter GoToDefinition<CR>
+nnoremap <LEADER>gr :YcmCompleter GoToReferences<CR>
+nnoremap <LEADER>gt :YcmCompleter GetType<CR>
+nnoremap <LEADER>gk :YcmCompleter GetDoc<CR>
+
+" Tsuquyomi
+let g:tsuquyomi_disable_quickfix=1
+let g:tsuquyomi_disable_default_mappings=1
+
+nnoremap  <LEADER>td :TsuquyomiDefinition<CR>
+nnoremap  <LEADER>tb :TsuquyomiGoBack<CR>
+nnoremap  <LEADER>tr :TsuquyomiReferences<CR>
+
+" Syntastic
+" function! TScfg(where)
+"     let cfg = findfile('tsconfig.json', escape(a:where, ' ') . ';')
+"     echo cfg !=# '' ? '-p ' . cfg : ''
+"     return cfg !=# '' ? '-p ' . cfg : ''
+" endfunction
+" 
+" autocmd FileType typescript let b:syntastic_typescript_tsc_args = TScfg(expand('<amatch>:p:h', 1))
+
+let g:syntastic_debug = 0
+let g:syntastic_typescript_tsc_fname = ''
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger='<c-j>'
+
+" Smart return for delmit
+let delimitMate_expand_cr=1
+
+" Netrw
+autocmd FileType netrw setl bufhidden=wipe
+
+" Show me those god damn quotes!
+let g:vim_json_syntax_conceal = 0
+
+" Toggle paste with F2
+set pastetoggle=<F2>

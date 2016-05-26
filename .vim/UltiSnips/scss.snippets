@@ -1,0 +1,28 @@
+snippet fl
+///*----------------------------------*\
+//  #$1
+//\*----------------------------------*/
+endsnippet
+
+snippet sc5
+// $3
+//
+// .$1 - default
+//
+// markup:
+//  <div class="$1 {$modifiers}">
+//  </div>
+//
+// Styleguide $2
+
+$$1: '.$1' !default;
+#{$$1} {
+  $0
+}
+endsnippet
+
+snippet sgi
+// styleguide:ignore:start
+$0
+// styleguide:ignore:end
+endsnippet

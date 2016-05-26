@@ -1,0 +1,25 @@
+snippet co "angular component class" bm
+@Component(
+  selector: '${1:`!p snip.rv = fn.replace(".ts","").replace("_","-")`}',
+  templateUrl: '${2:`!p snip.rv = t[1].replace("-","_") + ".html"`}',
+  styleUrls: const ['${3:`!p snip.rv = t[1].replace("-","_") + ".scss.css"`}'],
+  directives: const[$4])
+class ${1/(-|^)(\w)/\u$2/g} {
+  ${0}
+}
+endsnippet
+
+snippet itngco "it angular2 component"
+it('$2',
+    inject([TestComponentBuilder, AsyncTestCompleter], (tcb: TestComponentBuilder, async) => {
+      var template = `$3`;
+
+      tcb.overrideTemplate($1, template)
+          .createAsync($1)
+          .then((fixture) => {
+            fixture.detectChanges();
+            $0
+            async.done();
+          });
+    }));
+endsnippet

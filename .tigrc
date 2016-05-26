@@ -1,6 +1,9 @@
 # GENERAL SETTINGS
 set show-date = relative
 
+# VIEW COMMANDS
+bind generic    H view-refs
+
 # HUB COMMANDS
 bind main       o !@hub browse -- commit/%(commit)
 bind diff       o !@hub browse -- commit/%(commit)
@@ -13,20 +16,24 @@ bind generic    $ !?git checkout -b %(prompt)
 bind generic    f !git fetch origin
 
 # BRANCH COMMANDS
-bind branch     C !?@git checkout %(branch)
-bind branch     > !?git push origin %(branch)
-bind branch     < !?git pull origin %(branch)
-bind branch     F !?git %(prompt) origin %(branch) -f
-bind branch     X !?git branch -d %(branch)
-bind branch     K !?git branch -D %(branch)
-bind branch     m !?git branch -m %(branch) %(prompt)
-bind branch     | !?git checkout -b %(prompt) %(branch)
-bind branch     & !?git rebase %(branch)
-bind branch     + !?git merge %(branch)
+bind branch     C    !?@git checkout %(branch)
+bind branch     >    !?git push origin %(branch)
+bind branch     <LT> !?git pull origin %(branch)
+bind branch     F    !?git %(prompt) origin %(branch) -f
+bind branch     x    !?git branch -d %(branch)
+bind branch     X    !?git branch -D %(branch)
+bind branch     m    !?git branch -m %(branch) %(prompt)
+bind branch     |    !?git checkout -b %(branch) %(remote)/%(branch)
+bind branch     &    !?git rebase %(branch)
+bind branch     +    !?git merge %(branch)
+bind branch     p    !?git remote prune origin
+bind branch     3    !?git push origin %(branch)
 
 # STATUS COMMANDS
 bind status     c !?git rebase --continue
 bind status     s !?git rebase --skip
+bind status     o !?git checkout --ours %(file)
+bind status     t !?git checkout --theirs %(file)
 bind status     . !@git add .
 bind status     r !?git reset --hard HEAD
 bind status     ~ !?git reset --hard HEAD~%(prompt)
