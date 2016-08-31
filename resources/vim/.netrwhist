@@ -1,11 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='/Users/colinkahn/code/hex-css/src'
-let g:netrw_dirhist_2='/Users/colinkahn/.dotfiles/.vim/UltiSnips'
-let g:netrw_dirhist_3='/Users/colinkahn/code/hex-css/src'
-let g:netrw_dirhist_4='/Users/colinkahn/code/hex-css'
-let g:netrw_dirhist_5='/Users/colinkahn/code/hex-css/build'
-let g:netrw_dirhist_6='/Users/colinkahn/code/hex-css/src'
-let g:netrw_dirhist_7='/Users/kahnc008'
-let g:netrw_dirhist_8='/Users/kahnc008/code/hex-css'
-let g:netrw_dirhist_9='/Users/kahnc008/code/hex-css/src'
+let g:netrw_dirhist_cnt =0

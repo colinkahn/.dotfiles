@@ -1,5 +1,81 @@
-snippet co
-```
+snippet co "Code"
+\`\`\`
 $0
-```
+\`\`\`
+endsnippet
+
+global !p
+def module_name (path):
+  from os.path import dirname, basename
+  return basename(dirname(path))
+
+def humanized_module_name (path):
+  return module_name(path).title()
+
+def readme_dependencies_list (inp):
+  fmt = lambda x: "[{0}](/docs/{1})".format(n.strip(), n.strip().lower())
+  return ", ".join([fmt(n) for n in inp.split(",")])
+endglobal
+
+snippet "(([\w\s]+,?)+)\.docs" "README Dependencies" r
+`!p snip.rv = readme_dependencies_list(match.group(1))`
+endsnippet
+
+snippet "(\d+)([#])" "Markdown Heading" r
+`!p snip.rv = match.group(2) * int(match.group(1))`
+endsnippet
+
+snippet hre "Hex README"
+# Hex ${1:`!p snip.rv = humanized_module_name(path)`}
+
+## Demo
+
+[$1 Demo](/demo/#/demos/${2:`!p snip.rv = module_name(path)`}).
+
+## Dependencies
+
+$3
+
+## Imports
+
+\`\`\`
+import {Hex$1Module} from 'hex/$2/index';
+\`\`\`
+
+## CSS
+
+All $2 styles are encapulated.
+
+## Directives
+
+### hex-$2
+
+## Usage
+
+#### Default
+endsnippet
+
+global !p
+def create_row_placeholder(placeholders_amount, tabstop):
+  return '| ' + ' | '.join(['$' + str(i+1+tabstop) for i in range(placeholders_amount)]) + ' |'
+
+def create_header_placeholder(placeholders_amount, tabstop):
+  return '| ' + ' | '.join(['$' + str(i+1+tabstop) for i in
+  range(placeholders_amount)]) + ' |\n' + '|-' + '-|-'.join('-' for i in
+  range(placeholders_amount)) + '-|'
+
+def create_table_placeholders(snip):
+    [cols, rows] = [int(x) for x in snip.buffer[snip.line].strip().split("x")]
+    snip.buffer[snip.line] = ''
+    anon_snippet_header = create_header_placeholder(cols, 1)
+    starting_rows_tabstop = cols
+    anon_snippet_body = "\n".join([
+      create_row_placeholder(cols, (i+1+starting_rows_tabstop)*cols) for i in range(rows)
+    ])
+    snip.expand_anon(anon_snippet_header + '\n' + anon_snippet_body)
+endglobal
+
+post_jump "create_table_placeholders(snip)"
+snippet "table(\d+x\d+)" "markdown table" br
+`!p snip.rv = match.group(1)`
 endsnippet

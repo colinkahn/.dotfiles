@@ -1,3 +1,131 @@
+snippet fl "flag"
+//--------------------------------
+// $0
+//--------------------------------
+endsnippet
+
+snippet deac "describe action"
+describe('$3', function () {
+	var action;
+	beforeEach(function () {
+		action = {
+			type: $2
+		};
+	});
+
+	it('$4', function () {
+		$1._handleAction(action);
+		$0
+	});
+
+	it('triggers change', function () {
+		$1._handleAction(action);
+		expect($1.triggerChange).toHaveBeenCalled();
+	});
+});
+endsnippet
+
+snippet decr "describe creator"
+describe('#$1', function () {
+	it('dispatches a $2 action', function () {
+		$4.$1($3);
+		expect(dispatcher.dispatch).toHaveBeenCalledWith({
+			type: $5.$2,
+			$6: $3
+		});
+	});
+});
+endsnippet
+
+snippet der "derive"
+$1.prototype = Object.create($0.prototype);
+$1.prototype.constructor = $1;
+endsnippet
+
+snippet di "dispatch"
+dispatcher.dispatch({
+	type: $0
+});
+endsnippet
+
+snippet in "inject"
+$1 = $injector.get('$1');
+endsnippet
+
+snippet it
+it('$1', () => {
+	$0
+});
+endsnippet
+
+snippet de "describe"
+describe('$1', () => {
+	$0
+});
+endsnippet
+
+snippet be "beforeEach"
+beforeEach(() => {
+	$0
+});
+endsnippet
+
+snippet bea "beforeEach(async() =>)"
+beforeEach(async(() => {
+	$0
+}));
+endsnippet
+
+snippet af "afterEach"
+afterEach(() => {
+  $0
+});
+endsnippet
+
+snippet fu "function"
+function ($1) {
+	$0
+}
+endsnippet
+
+snippet pr "prototype"
+$1.prototype.$2 = function ($3) {
+	$0
+};
+endsnippet
+
+snippet if
+if ($1) {
+	$0
+}
+endsnippet
+
+snippet th "this"
+this.$1 = $1;
+endsnippet
+
+snippet ca "case"
+case $1:
+	$0
+	break;
+endsnippet
+
+snippet sp "spyOn"
+spyOn($1, '$2')$0;
+endsnippet
+
+snippet ja "jasmine.createSpy"
+jasmine.createSpy('$1')$0;
+endsnippet
+
+snippet ex "expect"
+expect($1).$2($3);
+endsnippet
+
+snippet lo "log"
+console.log($1);
+endsnippet
+
 snippet co "angular component class" bm
 @Component(
   selector: '${1:`!p snip.rv = fn.replace(".ts","").replace("_","-")`}',
@@ -9,17 +137,408 @@ class ${1/(-|^)(\w)/\u$2/g} {
 }
 endsnippet
 
-snippet itngco "it angular2 component"
-it('$2',
-    inject([TestComponentBuilder, AsyncTestCompleter], (tcb: TestComponentBuilder, async) => {
-      var template = `$3`;
+snippet hcoin "hex index imports"
+export * from './$1.component';
+import {
+  $2
+} from './$1.component';
+export const HEX_${1/.*/\U$0\E/}_DIRECTIVES = [
+  $2
+];
+endsnippet
 
-      tcb.overrideTemplate($1, template)
-          .createAsync($1)
-          .then((fixture) => {
-            fixture.detectChanges();
-            $0
-            async.done();
-          });
-    }));
+snippet hsp "hex spec"
+import {
+  it,
+  describe,
+  expect,
+  inject,
+  beforeEachProviders
+} from '@angular/core/testing';
+
+describe('$1', () => {
+  $0
+});
+endsnippet
+
+snippet hex-panel
+<hex-panel>
+  <span hex-panel-header>$1</span>
+  <div hex-panel-body>$0</div>
+</hex-panel>
+endsnippet
+
+
+snippet sub "Rx Subject"
+public $1Subject = new Subject();
+public $1$ = this.$1Subject.asObservable();
+$0
+endsnippet
+
+snippet Ou "@Output"
+@Output('$1') $1Output = new EventEmitter<any>();
+endsnippet
+
+snippet con "console.log()"
+console.log($1)
+endsnippet
+
+snippet try "try/catch"
+try {
+  $1
+} catch (e) {
+  $2
+}
+endsnippet
+
+snippet tbs "TestBed Setup"
+TestBed.configureTestingModule({
+	imports: [$1],
+	declarations: [Test${1/(\w+)Module/$1/}],
+});
+TestBed.compileComponents();
+endsnippet
+
+snippet icm "Import Common Module"
+import {CommonModule} from '@angular/common';
+endsnippet
+
+snippet ingm "Import NgModule"
+import {NgModule} from '@angular/core';
+endsnippet
+
+snippet isf "Import sutFactory"
+import {sutFactory} from '../core/testing/index';
+endsnippet
+
+snippet hcm "Hex Component Module"
+@NgModule({
+  exports: [$1],
+  declarations: [$1]
+})
+export class $1Module {}
+endsnippet
+
+
+snippet rngm "Refactor NgModule"
+@NgModule({
+  exports: $2,
+  declarations: $2
+})
+export class $1Module {}
+endsnippet
+
+snippet him "Import Hex Module"
+import {$1} from '../${1/Hex(\w+)Module/\l$1/}/index';
+endsnippet
+
+global !p
+from inflection import *
+
+def fn_start (inp):
+  return inp.split(".")[0]
+
+def fn_basename (inp):
+  return ".".join(inp.split(".")[0:-1])
+
+def fn_kabob_to_camel (inp):
+  return "".join([n.title() for n in fn_start(inp).split("-")])
+
+def fn_kabob_to_snake (inp):
+  return fn_start(inp).replace("-", "_")
+
+def fn_kabob_to_human (inp):
+  return " ".join([n.title() for n in fn_start(inp).split("-")])
+
+def fn_spec_to_src_import (inp):
+  return inp.replace(".spec.ts", "")
+
+def camel_to_kabob (name):
+  s1 = re.sub('(.)([A-Z][a-z]+)', r'\1-\2', name)
+  return re.sub('([a-z0-9])([A-Z])', r'\1-\2', s1).lower()
+
+def safe_list_get (ls, idx, default=""):
+  try:
+    return ls[idx]
+  except IndexError:
+    return default
+
+def dir_files (p):
+  from os import listdir
+  from os.path import isfile, join
+  return [f for f in listdir(p) if isfile(join(p, f))]
+
+def ng_files (path, endingwith):
+  from os.path import dirname
+  return [f for f in dir_files(dirname(path)) if f.endswith(endingwith)]
+
+def ng_component_files (path):
+  from os.path import dirname
+  return [f for f in dir_files(dirname(path)) if f.endswith('.component.ts')]
+
+def ng_imports (files, import_fmt="{0}"):
+  fs = "import {{{0}}} from './{1}';"
+  return "\n".join([
+    fs.format(import_fmt.format(fn_kabob_to_camel(f)), fn_basename(f))
+    for f in files
+  ])
+
+def ng_types (files, import_fmt="{0}"):
+  return "\n".join([import_fmt.format(fn_kabob_to_camel(f)) for f in files])
+
+def ng_component_imports (path):
+  fs = "import {{Hex{0}}} from './{1}';"
+  return "\n".join([fs.format(fn_kabob_to_camel(f), fn_basename(f)) for f in ng_component_files(path)])
+
+def ng_component_exports (path):
+  from os.path import dirname
+  fs = "export * from './{1}';"
+  fls = dir_files(dirname(path))
+  return "\n".join([fs.format(fn_kabob_to_camel(f), fn_basename(f)) for f in fls if f.endswith('.ts')])
+
+def ng_component_list (path):
+  fs = "Hex{0},"
+  return "\n".join([snip.mkline(fs.format(fn_kabob_to_camel(f))) for f in ng_component_files(path)])
+
+def ng_module_import_format (inp):
+  n0 = inp.strip().replace(",","")
+  n1 = camel_to_kabob(n0).replace("hex-", "").replace("-module", "")
+  fs = "import {{{0}}} from '../../hex/{1}/index';"
+  return fs.format(n0, n1);
+
+def ng_modules_imports (inp):
+  imports = "\n".join([ng_module_import_format(n) for n in inp.split(",\n") if n.strip()])
+  return (imports and "\n" or "") + imports
+endglobal
+
+snippet "([^\s].*)\.return" "Return (postfix)" r
+return `!p snip.rv = match.group(1)`$0
+endsnippet
+
+snippet hcoim "Hex Component Directory Imports"
+`!p snip.rv = ng_component_imports(path)`
+endsnippet
+
+snippet hcoex "Hex Component Directory Exports"
+`!p snip.rv = ng_component_exports(path)`
+endsnippet
+
+snippet "(\s+)hcols" "Hex Component Directory List" r
+`!p snip.shift(len(match.group(1))/2); snip.rv = ng_component_list(path)`$0
+endsnippet
+
+global !p
+def mult_args_with_parens (inp):
+  if not inp:
+    return "()"
+  vs = inp.split(",")
+  if len(vs) > 1:
+    return "({0})".format(",".join(vs))
+  else:
+    return inp
+endglobal
+
+global !p
+def es6_arrow_requires_parens (inp):
+  if not inp:
+    return True
+  vs = inp.split(",")
+  if len(vs) > 1:
+    return True
+  else:
+    return False
+endglobal
+
+global !p
+def es6_arrow_return_brackets (inp):
+  return not (inp.find("return") is -1)
+endglobal
+
+global !p
+def if_rprns (inp, s):
+  return es6_arrow_requires_parens(inp) and s or ""
+endglobal
+
+global !p
+def if_hret (inp, s):
+  return es6_arrow_return_brackets(inp) and s or ""
+endglobal
+
+snippet "(?P<params>(\(([ ,\w]+)\))|([ ,\w]+)|\(\)) \=\> (?P<expr>.*?)\.2l" "Expand Arrow Function" r
+(`!p snip.rv = match.group('params').replace("(", "").replace(")", "")`$1) => {
+  return `!p snip.rv = match.group('expr')`$2
+}$0
+endsnippet
+
+snippet "\(([ ,\w]+)\) \=\> \{\s*(?:return\s+)?(.*?);?\s*\};?\.1l" "Condense Arrow Function" r
+`!p snip.rv = mult_args_with_parens(match.group(1))` => `!p snip.rv = match.group(2).strip()`$0
+endsnippet
+
+snippet => "Arrow Function"
+`!p snip.rv = if_rprns(t[1], "(")`$1`!p snip.rv = if_rprns(t[1], ")")` => `!p snip.rv = if_hret(t[2], "{\n")`$2`!p snip.rv = if_hret(t[2], "\n}")`
+endsnippet
+
+snippet dm "Demo Module"
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {routing} from './$0`!p snip.rv = fn_start(snip.fn)`.routing';$0`!p snip.rv = ng_modules_imports(t[1])`
+import {HexDemoModule} from '../core/index';
+import {Hex$0`!p snip.rv = fn_kabob_to_camel(snip.fn)`} from './$0`!p snip.rv = fn_start(snip.fn)`.component';
+
+@NgModule({
+  imports: [
+    CommonModule,
+    HexDemoModule,
+    routing,$1
+  ],
+  declarations: [Hex$0`!p snip.rv = fn_kabob_to_camel(snip.fn)`]
+})
+export class Hex$0`!p snip.rv = fn_kabob_to_camel(snip.fn)`Module {}
+endsnippet
+
+snippet ngm "@angular Module"
+import {$0`!p snip.rv = t[1].title()`Module} from '@angular/$1';
+endsnippet
+
+snippet dr "Demo Routing"
+import {Routes, RouterModule} from '@angular/router';
+import {ModuleWithProviders} from '@angular/core';
+import {Hex$0`!p snip.rv = fn_kabob_to_camel(snip.fn)`} from './$0`!p
+snip.rv = fn_start(snip.fn)`.component';
+
+export const routes:Routes = [
+  {path: '', component: Hex$0`!p snip.rv = fn_kabob_to_camel(snip.fn)`},
+];
+
+export const routing = RouterModule.forRoot(routes);
+endsnippet
+
+snippet hco "hex component"
+import {
+  Input,
+  Component,
+} from '@angular/core';
+
+/**
+ * ## Hex `!p snip.rv = fn_kabob_to_human(snip.fn)` Component
+ */
+@Component({
+  moduleId: module.id,
+  selector: 'hex-`!p snip.rv = fn_start(snip.basename)`',
+  template: \`\`,
+  styleUrls: ['`!p snip.rv = fn_start(snip.basename)`.css']
+})
+export class Hex`!p snip.rv = fn_kabob_to_camel(snip.fn)` {}
+endsnippet
+
+snippet hdco "hex demo component"
+import {Component} from '@angular/core';
+
+/**
+ * ## Hex `!p snip.rv = fn_kabob_to_human(snip.fn)` Component
+ */
+@Component({
+  moduleId: module.id,
+  selector: 'hex-`!p snip.rv = fn_start(snip.basename)`',
+  template: \`
+<hex-demo-page>
+  <span hex-demo-page-header>Hex `!p snip.rv = fn_kabob_to_human(snip.fn)` </span>
+
+  <hex-panel>
+    <span hex-panel-header>Default</span>
+    <div hex-panel-body>
+      $0
+    </div>
+  </hex-panel>
+
+</hex-demo-page>
+  \`,
+})
+export class Hex`!p snip.rv = fn_kabob_to_camel(snip.fn)` {}
+endsnippet
+
+snippet hcom "hex component module"
+import {NgModule} from '@angular/core';
+`!p snip.rv = ng_component_imports(path)`
+
+/** @internal */
+const ${0:HEX_`!p snip.rv = fn_kabob_to_snake(snip.fn).upper()`_DIRECTIVES} = [
+`!p snip >> 1; snip.rv = ng_component_list(path)`
+];
+
+@NgModule({
+  exports: $0,
+  declarations: $0
+})
+export class Hex`!p snip.rv = fn_kabob_to_camel(snip.fn)`Module {}
+endsnippet
+
+snippet hcosp "angular 2 component spec"
+import {
+  async,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  Component,
+  ElementRef,
+} from '@angular/core';
+import {
+  sutFactory,
+} from '../core/testing/index';
+import {${1:Hex`!p snip.rv = fn_kabob_to_camel(fn)`}} from './`!p snip.rv = fn_spec_to_src_import(fn)`';
+`!p snip.rv = ng_imports(ng_files(path, "module.ts"), "Hex{0}Module")`
+
+@Component({
+  template: \`
+$3
+  \`,
+  directives: [$1]
+})
+class ${2:Test$1} {
+  $4
+
+  constructor (private element:ElementRef) {}
+
+  $5
+}
+
+type SUT = {
+  componentInstance:$2,
+  nativeElement:any,
+  fixture:any,
+};
+
+describe('$1 Test', () => {
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        `!p snip.rv = ng_types(ng_files(path, "module.ts"), "Hex{0}Module")`
+      ],
+      declarations: [$2],
+    });
+    TestBed.compileComponents();
+  }));
+
+  $0
+});
+endsnippet
+
+snippet itco
+it('$1', () => {
+  let {
+    componentInstance:sut,
+    nativeElement:sutEl,
+    fixture
+  }:SUT = sutFactory(TestHex`!p snip.rv = fn_kabob_to_camel(fn)`);
+  $2
+  fixture.detectChanges();
+  $3
+});
+endsnippet
+
+snippet "([\w\W]+)\.cowsay" "Cowsay" r
+//  `!p
+from subprocess import check_output
+snip.rv = check_output(['cowsay', match.group(1)]).replace("\n", "\n//  ")
+`
 endsnippet
