@@ -19,12 +19,20 @@ set nocompatible
 let mapleader=','
 
 " Pathogen
+
+let g:pathogen_disabled = []
+
 call pathogen#infect()
 call pathogen#helptags()
+
+" Status Line
  
 set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)
 filetype plugin indent on
+
+" General
  
+set re=1
 syntax on
 set encoding=utf-8
 set number
@@ -57,6 +65,7 @@ set colorcolumn=+1
 set backspace=indent,eol,start
 set incsearch
 set hidden
+set nobackup
 
 " No Swapfiles 
 set noswapfile
@@ -82,6 +91,7 @@ colorscheme darcula
 
 " Remap ESC
 inoremap jj <ESC>
+inoremap jk <ESC>
 
 " Tabularize
 nmap <Leader>a= :Tabularize /=<CR>
@@ -96,6 +106,9 @@ set mouse=a
 
 " Add Under-Cusor Highlighting
 :autocmd CursorMoved * exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+
+" Property Sort
+command! SortP :g#\({\n\)\@<=#.,/}/sort
 
 " Count Word Under-Cursor
 map <Leader>c :execute ":%s@\\<" . expand("<cword>") . "\\>\@&@gn"<CR>
@@ -115,8 +128,8 @@ let g:ctrlp_user_command = {
 let g:ctrlp_prompt_mappings = {
     \ 'ToggleFocus()':        ['<up>'],
     \ 'PrtExpandDir()':       ['<down>'],
-    \ 'PrtSelectMove("k")':   ['<s-tab>'],
-    \ 'PrtSelectMove("j")':   ['<tab>'],
+    \ 'PrtSelectMove("k")':   ['<tab>'],
+    \ 'PrtSelectMove("j")':   ['<c-j>'],
     \ 'PrtCurRight()':        ['<right>'],
     \ 'AcceptSelection("t")': ['<c-l>'],
     \ 'AcceptSelection("v")': ['<c-k>'],
@@ -126,6 +139,8 @@ let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
 
 nmap <LEADER>sw :CtrlPLine<CR><C-\>w
 nmap <LEADER>sf :let @"=expand("%:t:r:r")<CR>:CtrlP<CR><C-\>r"
+nmap <LEADER>pf :CtrlPCurFile<CR>
+nmap <LEADER>p :CtrlP<CR>
 
 " Always show tab bar
 set showtabline=2
@@ -175,6 +190,7 @@ nnoremap  <LEADER>tr :TsuquyomiReferences<CR>
 
 let g:syntastic_debug = 0
 let g:syntastic_typescript_tsc_fname = ''
+let g:syntastic_typescript_checkers = ['tslint']
 
 " UltiSnips
 let g:UltiSnipsExpandTrigger='<c-j>'
@@ -190,3 +206,53 @@ let g:vim_json_syntax_conceal = 0
 
 " Toggle paste with F2
 set pastetoggle=<F2>
+
+" TSFMT
+
+if !exists("s:vist")
+    let s:vist = {'depth': 0}
+endif
+
+func! SaveView()
+    if s:vist.depth == 0
+let s:vist.view = winsaveview()
+    endif
+    let s:vist.depth += 1
+endfunc
+
+func! RestoreView()
+    if s:vist.depth == 1
+call winrestview(s:vist.view)
+unlet s:vist.view
+    endif
+    let s:vist.depth -= 1
+endfunc
+
+com! -nargs=* -complete=command KeepView
+    \ try| call SaveView()| exec <q-args>
+    \| finally| call RestoreView()| endtry
+
+autocmd BufWritePre *.ts KeepView %! tsfmt --stdin
+
+" Fugitive
+let g:fugitive_gitlab_domains = ["https://code.wds.io/"]
+
+" TIG
+nnoremap <LEADER>tig :!tig<CR>
+
+" Opening .spec and source files
+nnoremap <LEADER>sr :execute "vnew " . expand('%:p:h') . "/" . join(split(expand('%:t'), '\.')[0:1], ".") . ".ts"<CR>
+nnoremap <LEADER>sp :execute "vnew " . expand('%:p:h') . "/" .  join(split(expand('%:t'), '\.')[0:1], ".") . ".spec.ts"<CR>
+
+" Buffer delete and open Explore
+command! Bdex :let @z = bufnr('%')|Vex|execute "bd " . @z
+command! Wbdex :silent w|Bdex
+command! Rbdex :%bd|e#|Bdex
+command! Swrbdex :silent w|Rbdex
+command! Waex :silent wa|Rbdex
+command! Ebd :%bd|e#
+
+" Tig
+command! Tig :!tig
+
+

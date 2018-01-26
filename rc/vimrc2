@@ -1,0 +1,58 @@
+set nocompatible
+
+let mapleader=','
+
+" Pathogen
+
+let g:pathogen_disabled = []
+
+call pathogen#infect()
+call pathogen#helptags()
+
+" General
+
+set re=1
+syntax on
+set encoding=utf-8
+set number
+set hlsearch
+set autoindent
+set history=1000
+set cursorline
+set expandtab
+set shiftwidth=2
+set tabstop=2
+set softtabstop=2
+set textwidth=80
+set list
+set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+set shell=/bin/bash\ --login
+set lazyredraw
+set matchtime=3
+set showbreak=↪
+set splitbelow
+set splitright
+set fillchars=diff:⣿,vert:│
+set autowrite
+set autoread
+set shiftround
+set title
+set linebreak
+set dictionary=/usr/share/dict/words
+set spellfile=~/.vim/custom-dictionary.utf-8.add
+set colorcolumn=+1
+set backspace=indent,eol,start
+set incsearch
+set hidden
+set nobackup
+
+" No Swapfiles 
+set noswapfile
+
+" Colorscheme
+set t_Co=256
+colorscheme darcula
+
+" Remap ESC
+inoremap jj <ESC>
+inoremap jk <ESC>

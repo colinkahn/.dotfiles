@@ -1,2 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =0
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/Users/kahnc008/code/hex-angular/node_modules/fuse.js'
+let g:netrw_dirhist_2='/Users/kahnc008/code/hex-angular/src/modules/@hex/angular/core/services'
+let g:netrw_dirhist_3='/Users/kahnc008/code/hex-angular/node_modules/fuse.js'
+let g:netrw_dirhist_4='/Users/kahnc008/code/hex-angular/src/modules/@hex/angular/datefield/code-samples'
+let g:netrw_dirhist_5='/Users/kahnc008/code/hex-angular/src/modules/@hex/angular/typeahead/code-samples'

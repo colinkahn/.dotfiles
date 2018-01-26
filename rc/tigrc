@@ -34,9 +34,11 @@ bind status     c !?git rebase --continue
 bind status     s !?git rebase --skip
 bind status     o !?git checkout --ours %(file)
 bind status     t !?git checkout --theirs %(file)
+bind status     O !@git choadd %(file)
+bind status     T !@git chtadd %(file)
 bind status     . !@git add .
-bind status     r !?git reset --hard HEAD
-bind status     ~ !?git reset --hard HEAD~%(prompt)
+# bind status     r !?git reset --hard HEAD
+# bind status     ~ !?git reset --hard HEAD~%(prompt)
 bind status     & !git commit --amend
 bind status     - !@?rm %(file)
 

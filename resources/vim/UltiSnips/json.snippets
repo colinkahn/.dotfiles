@@ -1,0 +1,65 @@
+global !p
+from inflection import *
+import os.path;
+endglobal
+
+
+snippet hmeta
+`!p
+component = snip.fn.split(".")[0]
+underscored = tableize(component)
+humanized = humanize(underscored)
+camelized = camelize(component)
+`{
+  "id": "`!p snip.rv = component`",
+  "name": "`!p snip.rv = humanized`",
+  "dependencies": [
+  ],
+  "imports": [
+    {
+      "path": "@hex/angular/`!p snip.rv = component`",
+      "module": "Hex`!p snip.rv = camelized `Module"
+    }
+  ],
+  "directives": [
+  ],
+  "code_samples": [
+  ]
+}
+endsnippet
+
+snippet hmetadir
+{
+  "selector": "$1",
+  "description": "$2",
+  "is_component": ${3: true},
+  "attributes": [$4],
+  "events": [$5]
+}$0
+endsnippet
+
+snippet hmetaattr
+{
+  "name": "$1",
+  "type": "$2",
+  "description": "$3",
+  "default": "$4"
+}$0
+endsnippet
+
+snippet hmetaevent
+{
+  "name": "$1",
+  "type": "${2: null}",
+  "description": "$3"
+}$0
+endsnippet
+
+snippet hmetacs
+`!p
+component = snip.fn.split(".")[0]
+`{
+  "title": "$1",
+  "path": "@hex/angular/`!p snip.rv = component`/code-samples/`!p snip.rv = component `-code-samples$2.component.ts"
+}$0
+endsnippet

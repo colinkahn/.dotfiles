@@ -28,6 +28,13 @@ $0
 endsnippet
 
 snippet hngco "hex angular2 component"
-@import '../core/styles/settings.core';
-@import 'hex-css/src/components.$0';
+@import '@hex/css/scss/settings.all';
+@import '@hex/css/scss/tools.all';
+@import '@hex/css/scss/components.$0';
+endsnippet
+
+snippet tdcl
+@include t-hex-theme-decls((
+  $0
+));
 endsnippet

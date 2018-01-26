@@ -12,6 +12,8 @@ tig:
 	ln -fs $(DOTFILES)/rc/tigrc ${HOME}/.tigrc
 ack:
 	ln -fs $(DOTFILES)/rc/ackrc ${HOME}/.ackrc
+git:
+	ln -fs $(DOTFILES)/rc/gitconfig ${HOME}/.gitconfig
 vimfiles:
 	ln -fs $(DOTFILES)/resources/vim ${HOME}/vim
 vimplugins:
@@ -30,6 +32,7 @@ vimplugins:
 	git clone git@github.com:tpope/vim-fugitive.git $(DOTFILES)/resources/vim/bundle/vim-fugitive
 	git clone git@github.com:blueshirts/darcula.git $(DOTFILES)/resources/vim/bundle/darcula
 	git clone git@github.com:leafgarland/typescript-vim.git $(DOTFILES)/resources/vim/bundle/typescript-vim
+	git clone git@github.com:tpope/vim-abolish.git $(DOTFILES)/resources/vim/bundle/vim-abolish
 ycm:	
 	brew install cmake;
 	(

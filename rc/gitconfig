@@ -1,0 +1,10 @@
+[alias]
+choadd = "!git checkout --ours $1 \
+          ; git add $1 \
+          "
+chtadd = "!git checkout --theirs $1 \
+          ; git add $1 \
+          "
+[user]
+	email = colin.j.kahn.-nd@disney.com
+	name = Colin Kahn

@@ -53,13 +53,21 @@ $1 = $injector.get('$1');
 endsnippet
 
 snippet it
-it('$1', () => {
+it("$1", () => {
 	$0
 });
 endsnippet
 
+snippet its
+it("should $1", () => { });$0
+endsnippet
+
+snippet itsa
+it("$1", async(() => { }));
+endsnippet
+
 snippet de "describe"
-describe('$1', () => {
+describe("$1", () => {
 	$0
 });
 endsnippet
@@ -148,16 +156,12 @@ export const HEX_${1/.*/\U$0\E/}_DIRECTIVES = [
 endsnippet
 
 snippet hsp "hex spec"
-import {
-  it,
-  describe,
-  expect,
-  inject,
-  beforeEachProviders
-} from '@angular/core/testing';
+import { mark } from "hex-angular/testing";
 
-describe('$1', () => {
-  $0
+mark("$1", () => {
+    describe("$2", () => {
+        $3
+    });
 });
 endsnippet
 
@@ -229,7 +233,7 @@ export class $1Module {}
 endsnippet
 
 snippet him "Import Hex Module"
-import {$1} from '../${1/Hex(\w+)Module/\l$1/}/index';
+import {$1} from 'hex/${1/Hex(\w+)Module/\l$1/}/index';
 endsnippet
 
 global !p
@@ -276,6 +280,10 @@ def ng_component_files (path):
   from os.path import dirname
   return [f for f in dir_files(dirname(path)) if f.endswith('.component.ts')]
 
+def ng_directive_files (path):
+  from os.path import dirname
+  return [f for f in dir_files(dirname(path)) if f.endswith('.directive.ts')]
+
 def ng_imports (files, import_fmt="{0}"):
   fs = "import {{{0}}} from './{1}';"
   return "\n".join([
@@ -287,14 +295,21 @@ def ng_types (files, import_fmt="{0}"):
   return "\n".join([import_fmt.format(fn_kabob_to_camel(f)) for f in files])
 
 def ng_component_imports (path):
-  fs = "import {{Hex{0}}} from './{1}';"
+  fs = "import {{Hex{0}}} from \"./{1}\";"
   return "\n".join([fs.format(fn_kabob_to_camel(f), fn_basename(f)) for f in ng_component_files(path)])
+
+def ng_directive_imports (path):
+  fs = "import {{Hex{0}}} from \"./{1}\";"
+  return "\n".join([fs.format(fn_kabob_to_camel(f), fn_basename(f)) for f in ng_directive_files(path)])
+
+def ng_component_exports_match (f):
+  return f != ".baseDir.ts" and f != "index.ts" and not f.endswith(".spec.ts") and f.endswith(".ts");
 
 def ng_component_exports (path):
   from os.path import dirname
-  fs = "export * from './{1}';"
+  fs = "export * from \"./{1}\";"
   fls = dir_files(dirname(path))
-  return "\n".join([fs.format(fn_kabob_to_camel(f), fn_basename(f)) for f in fls if f.endswith('.ts')])
+  return "\n".join([fs.format(fn_kabob_to_camel(f), fn_basename(f)) for f in fls if ng_component_exports_match(f)])
 
 def ng_component_list (path):
   fs = "Hex{0},"
@@ -317,6 +332,7 @@ endsnippet
 
 snippet hcoim "Hex Component Directory Imports"
 `!p snip.rv = ng_component_imports(path)`
+`!p snip.rv = ng_directive_imports(path)`
 endsnippet
 
 snippet hcoex "Hex Component Directory Exports"
@@ -378,87 +394,80 @@ snippet => "Arrow Function"
 `!p snip.rv = if_rprns(t[1], "(")`$1`!p snip.rv = if_rprns(t[1], ")")` => `!p snip.rv = if_hret(t[2], "{\n")`$2`!p snip.rv = if_hret(t[2], "\n}")`
 endsnippet
 
-snippet dm "Demo Module"
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {routing} from './$0`!p snip.rv = fn_start(snip.fn)`.routing';$0`!p snip.rv = ng_modules_imports(t[1])`
-import {HexDemoModule} from '../core/index';
-import {Hex$0`!p snip.rv = fn_kabob_to_camel(snip.fn)`} from './$0`!p snip.rv = fn_start(snip.fn)`.component';
+snippet hdcom "Demo Module"
+import {NgModule} from "@angular/core";
+import {routing} from "./$0`!p snip.rv = fn_start(snip.fn)`.routing";$0`!p snip.rv = ng_modules_imports(t[1])`
+import {HexDemoModule} from "../core/index";
+import {Hex$0`!p snip.rv = fn_kabob_to_camel(snip.fn)`} from "./$0`!p snip.rv = fn_start(snip.fn)`.component";
 
 @NgModule({
   imports: [
-    CommonModule,
+    routing,
     HexDemoModule,
-    routing,$1
+    $1
   ],
-  declarations: [Hex$0`!p snip.rv = fn_kabob_to_camel(snip.fn)`]
+  declarations: [Hex$0`!p snip.rv = fn_kabob_to_camel(snip.fn)`],
 })
 export class Hex$0`!p snip.rv = fn_kabob_to_camel(snip.fn)`Module {}
 endsnippet
 
 snippet ngm "@angular Module"
-import {$0`!p snip.rv = t[1].title()`Module} from '@angular/$1';
+import {$0`!p snip.rv = t[1].title()`Module} from "@angular/$1";
 endsnippet
 
-snippet dr "Demo Routing"
-import {Routes, RouterModule} from '@angular/router';
-import {ModuleWithProviders} from '@angular/core';
-import {Hex$0`!p snip.rv = fn_kabob_to_camel(snip.fn)`} from './$0`!p
-snip.rv = fn_start(snip.fn)`.component';
+snippet hexm "hex Module"
+import { Hex$0`!p snip.rv = t[1].title()`Module } from "hex/$1";
+
+endsnippet
+snippet hdcor "Demo Routing"
+import {Routes, RouterModule} from "@angular/router";
+import {ModuleWithProviders} from "@angular/core";
+import {Hex$0`!p snip.rv = fn_kabob_to_camel(snip.fn)`} from "./$0`!p snip.rv = fn_start(snip.fn)`.component";
 
 export const routes:Routes = [
-  {path: '', component: Hex$0`!p snip.rv = fn_kabob_to_camel(snip.fn)`},
+  {path: "", component: Hex$0`!p snip.rv = fn_kabob_to_camel(snip.fn)`},
 ];
 
-export const routing = RouterModule.forRoot(routes);
+export const routing = RouterModule.forChild(routes);
 endsnippet
 
 snippet hco "hex component"
-import {
-  Input,
-  Component,
-} from '@angular/core';
+import { Component, ViewEncapsulation } from "@angular/core";
 
-/**
- * ## Hex `!p snip.rv = fn_kabob_to_human(snip.fn)` Component
- */
 @Component({
-  moduleId: module.id,
-  selector: 'hex-`!p snip.rv = fn_start(snip.basename)`',
-  template: \`\`,
-  styleUrls: ['`!p snip.rv = fn_start(snip.basename)`.css']
+    moduleId: module.id,
+    selector: "hex-`!p snip.rv = fn_start(snip.basename)`",
+    template: \`\`,
+    styleUrls: ["`!p snip.rv = fn_start(snip.basename) `.css"],
+    encapsulation: ViewEncapsulation.None,
 })
-export class Hex`!p snip.rv = fn_kabob_to_camel(snip.fn)` {}
+export class Hex`!p snip.rv = fn_kabob_to_camel(snip.fn) ` { }
+endsnippet
+
+snippet hsco "hex simple component"
+import { Component } from "@angular/core";
+
+@Component({
+    moduleId: module.id,
+    selector: "[hex-`!p snip.rv = fn_start(snip.basename)`]",
+    template: \`\`,
+})
+export class Hex`!p snip.rv = fn_kabob_to_camel(snip.fn) ` { }
 endsnippet
 
 snippet hdco "hex demo component"
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
-/**
- * ## Hex `!p snip.rv = fn_kabob_to_human(snip.fn)` Component
- */
 @Component({
   moduleId: module.id,
-  selector: 'hex-`!p snip.rv = fn_start(snip.basename)`',
-  template: \`
-<hex-demo-page>
-  <span hex-demo-page-header>Hex `!p snip.rv = fn_kabob_to_human(snip.fn)` </span>
-
-  <hex-panel>
-    <span hex-panel-header>Default</span>
-    <div hex-panel-body>
-      $0
-    </div>
-  </hex-panel>
-
-</hex-demo-page>
-  \`,
+  selector: "hex-`!p snip.rv = fn_start(snip.basename)`",
+  templateUrl: "`!p snip.rv = fn_start(snip.basename)`.component.html",
 })
-export class Hex`!p snip.rv = fn_kabob_to_camel(snip.fn)` {}
+export class Hex`!p snip.rv = fn_kabob_to_camel(snip.fn)` { }
 endsnippet
 
 snippet hcom "hex component module"
-import {NgModule} from '@angular/core';
+import {NgModule} from "@angular/core";
 `!p snip.rv = ng_component_imports(path)`
 
 /** @internal */
@@ -468,72 +477,54 @@ const ${0:HEX_`!p snip.rv = fn_kabob_to_snake(snip.fn).upper()`_DIRECTIVES} = [
 
 @NgModule({
   exports: $0,
-  declarations: $0
+  declarations: $0,
 })
 export class Hex`!p snip.rv = fn_kabob_to_camel(snip.fn)`Module {}
 endsnippet
 
-snippet hcosp "angular 2 component spec"
-import {
-  async,
-  TestBed,
-} from '@angular/core/testing';
-import {
-  Component,
-  ElementRef,
-} from '@angular/core';
-import {
-  sutFactory,
-} from '../core/testing/index';
-import {${1:Hex`!p snip.rv = fn_kabob_to_camel(fn)`}} from './`!p snip.rv = fn_spec_to_src_import(fn)`';
-`!p snip.rv = ng_imports(ng_files(path, "module.ts"), "Hex{0}Module")`
+snippet hcosp
+import { async, TestBed, ComponentFixture } from "@angular/core/testing";
+import { Component } from "@angular/core";
+import { By } from "@angular/platform-browser";
+import { mark, FixtureBuilder, addHexMatchers, Finder } from "hex-angular/testing";
+import { ${1:Hex`!p snip.rv = fn_kabob_to_camel(snip.fn)`} } from "$3";
 
-@Component({
-  template: \`
-$3
-  \`,
-  directives: [$1]
-})
-class ${2:Test$1} {
-  $4
-
-  constructor (private element:ElementRef) {}
-
-  $5
-}
-
-type SUT = {
-  componentInstance:$2,
-  nativeElement:any,
-  fixture:any,
-};
-
-describe('$1 Test', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        `!p snip.rv = ng_types(ng_files(path, "module.ts"), "Hex{0}Module")`
-      ],
-      declarations: [$2],
-    });
-    TestBed.compileComponents();
-  }));
-
-  $0
+mark("$2", () => {
+  describe("$1", () => {
+      beforeEach(async(() => {
+          TestBed.configureTestingModule({
+              declarations: [
+                TestComponent,
+                $1,
+              ],
+          });
+      }));
+  });
 });
+
+@Component({ template: "" })
+class TestComponent { }
 endsnippet
 
 snippet itco
-it('$1', () => {
-  let {
-    componentInstance:sut,
-    nativeElement:sutEl,
-    fixture
-  }:SUT = sutFactory(TestHex`!p snip.rv = fn_kabob_to_camel(fn)`);
-  $2
+it("$1", async(() => {
+  let fixture = new FixtureBuilder(TestComponent).
+      setTemplate(\`$2\`).
+      build();
+
+  let {instance, debugElement} = Finder.getDirective(fixture, $3);
   fixture.detectChanges();
-  $3
-});
+
+  $4
+}));
+endsnippet
+
+snippet itcof
+it("$1", fakeAsync(() => {
+    let {instance, debugElement} = Finder.getDirective(fixture, $2);
+    fixture.detectChanges();
+    $0
+}));
 endsnippet
 
 snippet "([\w\W]+)\.cowsay" "Cowsay" r
@@ -541,4 +532,93 @@ snippet "([\w\W]+)\.cowsay" "Cowsay" r
 from subprocess import check_output
 snip.rv = check_output(['cowsay', match.group(1)]).replace("\n", "\n//  ")
 `
+endsnippet
+
+snippet hcodir
+import { Directive } from "@angular/core";
+
+@Directive({
+    selector: "[hex-`!p snip.rv = fn_start(snip.basename)`]",
+    host: {
+        "class": \`$1\`,
+    },
+})
+export class Hex`!p snip.rv = fn_kabob_to_camel(fn)` { $0}
+endsnippet
+
+snippet irxsub
+import { Subject } from "rxjs/Subject";
+endsnippet
+
+snippet irxobs
+import { Observable } from "rxjs/Observable";
+endsnippet
+
+snippet irxbeh
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
+endsnippet
+
+snippet irxsubsr
+import { Subscription } from "rxjs/Subscription";
+endsnippet
+
+snippet fpr "Factory Provider"
+{
+    provide: $1,
+    useFactory: ($3) => {
+      $0
+    },
+    deps: [
+      $2
+    ],
+},
+endsnippet
+
+snippet epr "Existing Provider"
+{
+    provide: $1,
+    useExisting: forwardRef(() => $2),
+},$0
+endsnippet
+
+snippet vpr "Value Provider"
+{
+    provide: $1,
+    useValue: $2,
+},$0
+endsnippet
+
+snippet jama "Jasmine Matcher"
+to$1: (util: jasmine.MatchersUtil, customEqualityTesters: jasmine.CustomEqualityTester[]) => {
+    return {
+        compare: (actual: $2, $3) => {
+            let result: { pass?: boolean, message?: string } = {};
+
+						$0
+
+            if (result.pass) {
+                result.message = "Expected NOT";
+            } else {
+                result.message = "Expected";
+            }
+
+            return result;
+        },
+    };
+}
+endsnippet
+
+snippet w/f "withFixture"
+withFixture(fixtureFactory($1), () => {
+  $0
+});
+endsnippet
+
+snippet ff "fixture factory"
+function fixtureFactory(template: string) {
+    return new FixtureBuilder<any>().
+        withModuleDeclarations([$1]).
+        setTemplate(template).
+        build();
+}
 endsnippet
