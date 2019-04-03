@@ -232,7 +232,7 @@ com! -nargs=* -complete=command KeepView
     \ try| call SaveView()| exec <q-args>
     \| finally| call RestoreView()| endtry
 
-autocmd BufWritePre *.ts KeepView %! tsfmt --stdin
+"autocmd BufWritePre *.ts KeepView %! tsfmt --stdin
 
 " Fugitive
 let g:fugitive_gitlab_domains = ["https://code.wds.io/"]

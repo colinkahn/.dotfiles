@@ -15,7 +15,7 @@ ack:
 git:
 	ln -fs $(DOTFILES)/rc/gitconfig ${HOME}/.gitconfig
 vimfiles:
-	ln -fs $(DOTFILES)/resources/vim ${HOME}/vim
+	ln -fs $(DOTFILES)/resources/vim ${HOME}/.vim
 vimplugins:
 	git clone git@github.com:ctrlpvim/ctrlp.vim.git $(DOTFILES)/resources/vim/bundle/ctrlp.vim
 	git clone git@github.com:jasoncodes/ctrlp-modified.vim.git $(DOTFILES)/resources/vim/bundle/ctrlp-modified.vim
@@ -33,6 +33,7 @@ vimplugins:
 	git clone git@github.com:blueshirts/darcula.git $(DOTFILES)/resources/vim/bundle/darcula
 	git clone git@github.com:leafgarland/typescript-vim.git $(DOTFILES)/resources/vim/bundle/typescript-vim
 	git clone git@github.com:tpope/vim-abolish.git $(DOTFILES)/resources/vim/bundle/vim-abolish
+	git clone git@github.com:prettier/vim-prettier.git $(DOTFILES)/resources/vim/bundle/vim-prettier
 ycm:	
 	brew install cmake;
 	(
