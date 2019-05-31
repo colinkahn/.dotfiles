@@ -7,6 +7,9 @@
 --type-add=css=.scss
 --type-add=ts=.ts
 --type-add=md=.md
+--type-add=cljs=.cljs
+--type-add=clj=.clj
+--type-add=cljc=.cljc
 --ignore-dir=.sass-cache
 --ignore-dir=node_modules
 --ignore-dir=bower_components

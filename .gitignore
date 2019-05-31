@@ -1,3 +1,4 @@
 user.cfg
 *.pyc
 resources/vim/bundle
+resources/vim/.netrwhist
